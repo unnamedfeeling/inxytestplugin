@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace TestPlugin\Wordpress;
@@ -7,11 +8,6 @@ namespace TestPlugin\Wordpress;
 class Posttypes
 {
     /**
-     * @var array
-     */
-    private $posttypes;
-
-    /**
      * Posttypes constructor.
      */
     public function __construct()
@@ -19,8 +15,17 @@ class Posttypes
         if (!defined('ABSPATH')) {
             die();
         }
+    }
 
-        $this->posttypes = [
+    public static function registerTypes()
+    {
+        foreach(self::getPosttypesConfig() as $key => $conf){
+            register_post_type($key, $conf);
+        }
+    }
+
+    private static function getPosttypesConfig(){
+        return [
             'servers' => [
                 'labels'             => [
                     'name'               => __('Servers', 'inxytest'),
@@ -39,12 +44,5 @@ class Posttypes
                 'supports'           => ['title','editor','author','thumbnail','excerpt','comments']
             ]
         ];
-    }
-
-    public function registerTypes()
-    {
-        foreach($this->posttypes as $key => $conf){
-            register_post_type($key, $conf);
-        }
     }
 }

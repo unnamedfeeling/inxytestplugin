@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace TestPlugin\Wordpress;
@@ -101,7 +102,7 @@ class SettingsPage
      *
      * @param array $input Contains all settings fields as array keys
      */
-    public function sanitize( $input )
+    public function sanitize( array $input )
     {
         $new_input = array();
         if( isset( $input['id_number'] ) )
@@ -118,7 +119,7 @@ class SettingsPage
      */
     public function print_section_info()
     {
-        print 'Enter your settings below:';
+        print __('Enter your settings below:', 'inxy');
     }
 
     /**

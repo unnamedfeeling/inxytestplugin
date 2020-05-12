@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aedc4498e2fa35aaeaf3cc49a671c4d3",
+    "content-hash": "8677713283fa3dd590f5eb7b35690073",
     "packages": [
         {
             "name": "gamajo/template-loader",

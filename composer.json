@@ -18,11 +18,6 @@
             "TestPlugin\\": "App/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "TestPlugin_Tests\\": "Tests/Php/"
-        }
-    },
     "require": {
         "php": ">=7.2",
         "guzzlehttp/guzzle": "^6.5.2",

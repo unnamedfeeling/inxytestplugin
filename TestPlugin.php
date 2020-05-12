@@ -17,8 +17,8 @@ define('TESTPLUGIN_URL', plugin_dir_url(__FILE__));
 
 use TestPlugin\Plugin;
 
-if (is_dir(TESTPLUGIN_DIR.'vendor') && file_exists(TESTPLUGIN_DIR . 'vendor/autoload.php')) {
-    require_once TESTPLUGIN_DIR . 'vendor/autoload.php';
+if (is_dir(TESTPLUGIN_DIR.'/vendor') && file_exists(TESTPLUGIN_DIR . '/vendor/autoload.php')) {
+    require_once TESTPLUGIN_DIR . '/vendor/autoload.php';
 }
 
 
