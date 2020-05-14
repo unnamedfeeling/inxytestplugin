@@ -4,10 +4,13 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-	entry: './assets/src/index.js',
+	entry: {
+		inxytestFront: './assets/src/front/index.js',
+		inxytestAdmin: './assets/src/admin/admin.js',
+	},
 	output: {
 		path: path.resolve(__dirname, 'assets/dist'),
-		filename: 'bundle.js'
+		filename: '[name].js'
 	},
 	
 	module: {
@@ -56,7 +59,7 @@ module.exports = {
 	plugins: [
 		
 		new MiniCssExtractPlugin({
-			filename: "bundle.css"
+			filename: "[name].css"
 		}),
 		new OptimizeCssAssetsPlugin({
 			cssProcessor: require('cssnano'),
