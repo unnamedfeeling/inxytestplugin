@@ -1,9 +1,13 @@
 <?php
 /*
-Plugin Name: INXY test plugin
-Description: Simple test plugin according to requirements.
-Author: Alexander Yarosh
-Version: 0.0.1
+Plugin Name:       INXY test plugin
+Description:       Simple test plugin according to requirements.
+Author:            Alexander Yarosh
+Author URI:        https://wpwebdev.pp.ua
+Version:           0.0.1
+License:           Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+License URI:       https://creativecommons.org/licenses/by-nc/4.0/legalcode
+Text Domain:       inxytest
 */
 
 declare(strict_types=1);
