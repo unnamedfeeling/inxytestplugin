@@ -2,7 +2,7 @@
   "name": "testplugin",
   "version": "1.0.0",
   "description": "INXY test plugin",
-  "main": "assets/src/index.js",
+  "main": "assets/src/front/index.js",
   "scripts": {
     "build": "webpack --optimize-minimize --config webpack.config.js",
     "start": "webpack --watch --config webpack-dev.config.js"
