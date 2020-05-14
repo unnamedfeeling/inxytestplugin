@@ -11,6 +11,11 @@ class Metaboxes
 {
     /* construct function, add meta box and save action hooks */
     function __construct(array $options) {
+
+        if (!defined('ABSPATH')) {
+            die();
+        }
+
         $this->options = $options;
         $this->prefix = $this->options['id'] .'_';
         add_action( 'add_meta_boxes', array( &$this, 'create' ) );

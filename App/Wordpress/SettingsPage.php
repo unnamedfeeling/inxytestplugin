@@ -140,7 +140,7 @@ class SettingsPage
     {
         printf(
             ' <input name="inxytest_option[jsonfile]" type="text" value="%1$s" />
-                <input type="button" value="%2s" class="button button-primary js-inxytestUploadBtn" /><br/>',
+                <input type="button" value="%2$s" class="button button-primary js-inxytestUploadBtn" /><br/>',
             isset( $this->options['jsonfile'] ) ? esc_attr( $this->options['jsonfile']) : '',
             __('Select or upload file', 'inxytest')
         );
@@ -150,7 +150,7 @@ class SettingsPage
     {
         printf(
             ' <input name="inxytest_option[url]" type="text" value="%1$s" />
-                <input type="button" value="%2s" class="button button-primary js-inxytestDirectUploadBtn" /><br/>',
+                <input type="button" value="%2$s" class="button button-primary js-inxytestDirectUploadBtn" /><br/>',
             isset( $this->options['url'] ) ? esc_attr( $this->options['url']) : '',
             __('Upload from this url', 'inxytest')
         );

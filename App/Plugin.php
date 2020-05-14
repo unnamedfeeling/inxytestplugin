@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace TestPlugin;
 
 
+use TestPlugin\API\APIHandler;
 use TestPlugin\Wordpress\Posttypes;
 use TestPlugin\Wordpress\SettingsPage;
 
@@ -35,6 +36,7 @@ class Plugin
 //        }
 
         new SettingsPage();
+        new APIHandler();
 
         add_filter( 'upload_mimes', [$this, 'addCustomMimetypes'] );
 
