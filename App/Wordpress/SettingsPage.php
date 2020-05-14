@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace TestPlugin\Wordpress;
 
 
+use TestPlugin\Loaders\TemplateLoader;
+
 class SettingsPage
 {
     /**
@@ -32,10 +34,10 @@ class SettingsPage
     {
         // This page will be under "Settings"
         add_options_page(
-            'Settings Admin',
-            'My Settings',
+            __('Test plugin settings', 'inxytest'),
+            __('Test plugin', 'inxytest'),
             'manage_options',
-            'my-setting-admin',
+            'inxytest-admin',
             array( $this, 'create_admin_page' )
         );
     }
@@ -46,20 +48,15 @@ class SettingsPage
     public function create_admin_page()
     {
         // Set class property
-        $this->options = get_option( 'my_option_name' );
-        ?>
-        <div class="wrap">
-            <h1>My Settings</h1>
-            <form method="post" action="options.php">
-                <?php
-                // This prints out all hidden setting fields
-                settings_fields( 'my_option_group' );
-                do_settings_sections( 'my-setting-admin' );
-                submit_button();
-                ?>
-            </form>
-        </div>
-        <?php
+        $this->options = get_option( 'inxytest_option' );
+
+
+        $tplLoader = new TemplateLoader();
+
+        $tpldata = ['options' => $this->options];
+
+        $tplLoader->set_template_data($tpldata, 'data');
+        $tplLoader->get_template_part('admin');
     }
 
     /**
@@ -68,33 +65,41 @@ class SettingsPage
     public function page_init()
     {
         register_setting(
-            'my_option_group', // Option group
-            'my_option_name', // Option name
+            'inxytest_option_group', // Option group
+            'inxytest_option', // Option name
             array( $this, 'sanitize' ) // Sanitize
         );
 
         add_settings_section(
             'setting_section_id', // ID
-            'My Custom Settings', // Title
+            __('Test plugin settings', 'inxytest'), // Title
             array( $this, 'print_section_info' ), // Callback
-            'my-setting-admin' // Page
+            'inxytest-admin' // Page
         );
 
         add_settings_field(
-            'id_number', // ID
-            'ID Number', // Title
-            array( $this, 'id_number_callback' ), // Callback
-            'my-setting-admin', // Page
-            'setting_section_id' // Section
-        );
-
-        add_settings_field(
-            'title',
-            'Title',
-            array( $this, 'title_callback' ),
-            'my-setting-admin',
+            'jsonfile',
+            __('File to import', 'inxytest'),
+            array( $this, 'mediaUpload_cb' ),
+            'inxytest-admin',
             'setting_section_id'
         );
+
+        add_settings_section(
+            'setting_section_separator1', // ID
+            '', // Title
+            array( $this, 'print_section_separator_or' ), // Callback
+            'inxytest-admin' // Page
+        );
+
+        add_settings_section(
+            'direct_upload_section', // ID
+            '', // Title
+            array( $this, 'directUpload_cb' ), // Callback
+            'inxytest-admin' // Page
+        );
+
+
     }
 
     /**
@@ -105,11 +110,12 @@ class SettingsPage
     public function sanitize( array $input )
     {
         $new_input = array();
-        if( isset( $input['id_number'] ) )
-            $new_input['id_number'] = absint( $input['id_number'] );
 
-        if( isset( $input['title'] ) )
-            $new_input['title'] = sanitize_text_field( $input['title'] );
+        if( isset( $input['jsonfile'] ) )
+            $new_input['jsonfile'] = sanitize_text_field( $input['jsonfile'] );
+
+        if( isset( $input['url'] ) )
+            $new_input['url'] = sanitize_text_field( $input['url'] );
 
         return $new_input;
     }
@@ -119,28 +125,34 @@ class SettingsPage
      */
     public function print_section_info()
     {
-        print __('Enter your settings below:', 'inxy');
+        print __('Enter your settings below:', 'inxytest');
     }
 
     /**
-     * Get the settings option array and print one of its values
+     * Print the Section separator 'or'
      */
-    public function id_number_callback()
+    public function print_section_separator_or()
+    {
+        print __('or', 'inxytest');
+    }
+
+    public function mediaUpload_cb()
     {
         printf(
-            '<input type="text" id="id_number" name="my_option_name[id_number]" value="%s" />',
-            isset( $this->options['id_number'] ) ? esc_attr( $this->options['id_number']) : ''
+            ' <input name="inxytest_option[jsonfile]" type="text" value="%1$s" />
+                <input type="button" value="%2s" class="button button-primary js-inxytestUploadBtn" /><br/>',
+            isset( $this->options['jsonfile'] ) ? esc_attr( $this->options['jsonfile']) : '',
+            __('Select or upload file', 'inxytest')
         );
     }
 
-    /**
-     * Get the settings option array and print one of its values
-     */
-    public function title_callback()
+    public function directUpload_cb()
     {
         printf(
-            '<input type="text" id="title" name="my_option_name[title]" value="%s" />',
-            isset( $this->options['title'] ) ? esc_attr( $this->options['title']) : ''
+            ' <input name="inxytest_option[url]" type="text" value="%1$s" />
+                <input type="button" value="%2s" class="button button-primary js-inxytestDirectUploadBtn" /><br/>',
+            isset( $this->options['url'] ) ? esc_attr( $this->options['url']) : '',
+            __('Upload from this url', 'inxytest')
         );
     }
 }
