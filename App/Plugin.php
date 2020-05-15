@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace TestPlugin;
 
 
+use TestPlugin\ACF\ACFBootstrap;
 use TestPlugin\API\APIHandler;
 use TestPlugin\Wordpress\Posttypes;
 use TestPlugin\Wordpress\SettingsPage;
@@ -37,6 +38,7 @@ class Plugin
 
         new SettingsPage();
         new APIHandler();
+        new ACFBootstrap();
 
         add_filter( 'upload_mimes', [$this, 'addCustomMimetypes'] );
 

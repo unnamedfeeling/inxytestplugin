@@ -13,6 +13,12 @@
             "email": "yarosh.alexandr@gmail.com"
         }
     ],
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "TestPlugin\\": "App/"
@@ -23,6 +29,12 @@
         "guzzlehttp/guzzle": "^6.5.2",
         "gamajo/template-loader": "^1.3",
         "ext-json": "*",
-        "justinrainbow/json-schema": "^5.2"
+        "justinrainbow/json-schema": "^5.2",
+        "wpackagist-plugin/advanced-custom-fields": "^5.8"
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/acf": ["wpackagist-plugin/advanced-custom-fields"]
+        }
     }
 }
