@@ -4,6 +4,7 @@
 namespace TestPlugin\API;
 
 
+use TestPlugin\Handlers\ServersHandler;
 use TestPlugin\Importer\JSONFileImporter;
 
 class APIHandler
@@ -21,6 +22,13 @@ class APIHandler
                     'namespace'  => 'testplugin/v1',
                     'action'     => 'handleJsonFileContents',
                     'callback'   => [JSONFileImporter::class, 'handleJsonFileContents']
+                ]
+            ],
+            'GET' => [
+                [
+                    'namespace'  => 'testplugin/v1',
+                    'action'     => 'getTableRowsHtml',
+                    'callback'   => [ServersHandler::class, 'handleGetTableRowsHtml']
                 ]
             ]
         ];

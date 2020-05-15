@@ -1,2 +1,1 @@
-
-/*# sourceMappingURL=inxytestFront.css.map */
+.container{display:block;max-width:100%;width:1200px;margin:0 auto;padding:0 15px}.row{display:flex;width:100%;margin-left:-15px;margin-right:-15px}.row .col{flex-basis:100%}.text-center{text-align:center}.inxytestForm,.table-responsive{width:100%}.testPlugin-table{opacity:1;transition:all .3s ease}.testPlugin-table.fetchingData{opacity:.3;position:relative}.testPlugin-table.fetchingData:before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:99}

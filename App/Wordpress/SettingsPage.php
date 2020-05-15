@@ -23,8 +23,7 @@ class SettingsPage
             die();
         }
 
-        add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
-        add_action( 'admin_init', array( $this, 'page_init' ) );
+        add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );;
     }
 
     /**
@@ -57,49 +56,6 @@ class SettingsPage
 
         $tplLoader->set_template_data($tpldata, 'data');
         $tplLoader->get_template_part('admin');
-    }
-
-    /**
-     * Register and add settings
-     */
-    public function page_init()
-    {
-        register_setting(
-            'inxytest_option_group', // Option group
-            'inxytest_option', // Option name
-            array( $this, 'sanitize' ) // Sanitize
-        );
-
-        add_settings_section(
-            'setting_section_id', // ID
-            __('Test plugin settings', 'inxytest'), // Title
-            array( $this, 'print_section_info' ), // Callback
-            'inxytest-admin' // Page
-        );
-
-        add_settings_field(
-            'jsonfile',
-            __('File to import', 'inxytest'),
-            array( $this, 'mediaUpload_cb' ),
-            'inxytest-admin',
-            'setting_section_id'
-        );
-
-        add_settings_section(
-            'setting_section_separator1', // ID
-            '', // Title
-            array( $this, 'print_section_separator_or' ), // Callback
-            'inxytest-admin' // Page
-        );
-
-        add_settings_section(
-            'direct_upload_section', // ID
-            '', // Title
-            array( $this, 'directUpload_cb' ), // Callback
-            'inxytest-admin' // Page
-        );
-
-
     }
 
     /**

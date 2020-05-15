@@ -5,8 +5,15 @@ declare(strict_types=1);
 namespace TestPlugin\Wordpress;
 
 
+use WP_Query;
+
 class Posttypes
 {
+    private $defaultQueryArgs = [
+        'post_type' => 'servers',
+        'posts_per_page' => 20,
+    ];
+
     /**
      * Posttypes constructor.
      */
@@ -44,5 +51,11 @@ class Posttypes
                 'supports'           => ['title','editor','author','thumbnail','excerpt','comments']
             ]
         ];
+    }
+
+    public function queryPosts(array $params = []) {
+        $args = array_merge($this->defaultQueryArgs, $params);
+
+        return new WP_Query($args);
     }
 }

@@ -6,6 +6,7 @@ namespace TestPlugin;
 
 use TestPlugin\ACF\ACFBootstrap;
 use TestPlugin\API\APIHandler;
+use TestPlugin\Handlers\PageLoadHandler;
 use TestPlugin\Wordpress\Posttypes;
 use TestPlugin\Wordpress\SettingsPage;
 
@@ -23,18 +24,18 @@ class Plugin
 
     public function run(): void
     {
-//        if (!is_admin()) {
-//            $routes = [
-//                [
-//                    'name' => 'testplugin',
-//                    'callback' => [new PageLoadHandler, 'handlePageLoad'],
-//                    'params' => [],
-//                ],
-//            ];
-//
-//            $router = new Router();
-//            $router->registerRewriteRoutes($routes);
-//        }
+        if (!is_admin()) {
+            $routes = [
+                [
+                    'name' => 'testplugin',
+                    'callback' => [new PageLoadHandler, 'handlePageLoad'],
+                    'params' => [],
+                ],
+            ];
+
+            $router = new Router();
+            $router->registerRewriteRoutes($routes);
+        }
 
         new SettingsPage();
         new APIHandler();
@@ -61,16 +62,18 @@ class Plugin
 
     public static function loadAdminAssets(): void
     {
-        if(file_exists(TESTPLUGIN_DIR . '/assets/dist/inxytestAdmin.js')){
-            if ( ! did_action( 'wp_enqueue_media' ) ) {
-                wp_enqueue_media();
+        if('settings_page_inxytest-admin' === (get_current_screen())->id){
+            if(file_exists(TESTPLUGIN_DIR . '/assets/dist/inxytestAdmin.js')){
+                if ( ! did_action( 'wp_enqueue_media' ) ) {
+                    wp_enqueue_media();
+                }
+
+                wp_enqueue_script('testpluginAdmin-js', TESTPLUGIN_URL . '/assets/dist/inxytestAdmin.js', ['jquery', 'media-upload', 'thickbox'], '1.0');
             }
 
-            wp_enqueue_script('testpluginAdmin-js', TESTPLUGIN_URL . '/assets/dist/inxytestAdmin.js', ['jquery', 'media-upload', 'thickbox'], '1.0');
-        }
-
-        if (file_exists(TESTPLUGIN_DIR . '/assets/dist/inxytestAdmin.css')){
-            wp_enqueue_style('testpluginAdmin-css', TESTPLUGIN_URL . '/assets/dist/inxytestAdmin.css', null, '1.0');
+            if (file_exists(TESTPLUGIN_DIR . '/assets/dist/inxytestAdmin.css')){
+                wp_enqueue_style('testpluginAdmin-css', TESTPLUGIN_URL . '/assets/dist/inxytestAdmin.css', null, '1.0');
+            }
         }
     }
 
